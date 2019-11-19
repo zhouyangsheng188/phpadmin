@@ -9,7 +9,6 @@
 namespace app\admin\controller;
 
 use app\admin\model\Admin;
-use think\App;
 use tool\Auth;
 
 class Index extends Base
@@ -18,9 +17,10 @@ class Index extends Base
     {
         $authModel = new Auth();
         $menu = $authModel->getAuthMenu(session('admin_role_id'));
-
+        $username = session('admin_user_name');
         $this->assign([
-            'menu' => $menu
+            'menu'     => $menu,
+            'username' => $username
         ]);
 
         return $this->fetch();
@@ -28,10 +28,6 @@ class Index extends Base
 
     public function home()
     {
-        $this->assign([
-            'tp_version' => App::VERSION
-        ]);
-
         return $this->fetch();
     }
 
