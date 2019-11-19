@@ -15,15 +15,14 @@ class Base extends Controller
 {
     public function initialize()
     {
-        if(empty(session('admin_user_name'))){
-
+        $username = session('admin_user_name');
+        if (empty($username)) {
             $this->redirect(url('login/index'));
         }
 
         $controller = lcfirst(request()->controller());
         $action = request()->action();
         $checkInput = $controller . '/' . $action;
-
         $authModel = Auth::instance();
         $skipMap = $authModel->getSkipAuthMap();
 
@@ -41,7 +40,7 @@ class Base extends Controller
         }
 
         $this->assign([
-            'admin_name' => session('admin_user_name'),
+            'admin_name' => $username,
             'admin_id' => session('admin_user_id')
         ]);
     }
